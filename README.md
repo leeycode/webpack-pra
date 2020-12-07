@@ -37,3 +37,19 @@ module.exports = {
 }
 
 ```
+
+## output
+output用来指定打包输出。多个文件的时候通过占位符做区分 ，比如[name]。
+
+```
+module.exports = {
+    output: {
+        filename: '[name].js',
+        path: __dirname + '/dist/
+    }
+}
+
+```
+
+
+

@@ -106,3 +106,16 @@ plugins: [
     ]
 
 ```
+
+## mode
+用来指定当前node的构建环境，有三种类型的值:production,development,none。(webpack4)
+可用webpack内置函数来设置。
+
+
+### 选项描述
+
+名称                         | 描述
+---|---
+development	    | 会将 DefinePlugin 中 process.env.NODE_ENV 的值设置为 development。启用 NamedChunksPlugin 和 NamedModulesPlugin
+production      | 会将 DefinePlugin 中 process.env.NODE_ENV 的值设置为 production。启用 FlagDependencyUsagePlugin, FlagIncludedChunksPlugin, ModuleConcatenationPlugin, NoEmitOnErrorsPlugin, OccurrenceOrderPlugin, SideEffectsFlagPlugin 和 TerserPlugin。
+none            | 不开启任何优化选项

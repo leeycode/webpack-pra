@@ -1,122 +1,73 @@
 # webpack-pra
-webpack练习
 
-# 默认安装
-npm init -y
+webpack手册，包含基础概念，基础用法，和进阶用法，持续更新！
 
-# 安装webpack相关
-npm install webpack webpack-cli --save-dev
+## webpack 核心概念
 
-# 检查webpack版本 cd node_modules/.bin
-webpack -v
-
-# 通过npm stript运行webpack,否则只能在.bin下面执行
-```
-package.json中添加 **build": "webpack"**
-```
-
-# 核心概念
-## entry
-entry是webpack打包文件的入口。入口可以设置多个，比如多页面应用。两者的写法有差异，但入口接收一个字符串，多入口写成对象的形式。
-
-### 单入口写法
-
-```
-module.exports = {
-    entry: "./path/to/my/entry/file.js"
-}
-```
-
-### 多入口写法
-```
-module.exports = {
-    entry: {
-        app: './src/app.js',
-        adminApp: './src/adminApp.js'
-    }
-}
-
-```
-
-## output
-output用来指定打包输出。多个文件的时候通过占位符做区分 ，比如[name]。
-
-```
-module.exports = {
-    output: {
-        filename: '[name].js',
-        path: __dirname + '/dist/
-    }
-}
-
-```
-
-## loader 
-webpack原生只支持js,json两种文件类型，通过loader去支持其他文件类型并把他们转化成有效的模块，并添加到依赖图中。
-
-本身是一个函数，接受源文件作为参数，返回转换的结果。
+1. [webpack 核心概念之 entry/output](./doc/1.md)
+2. [webpack 核心概念之 loader/plugin](./doc/2.md)
+3. [webpack 核心概念之 mode](./doc/3.md)
 
 
-### 常见的loader 
+## webpack 基础用法
 
-名称        | 描述
----|---
-babel-loader | 转换ES6等新特性语法
-css-loader   | .css文件的加载和解析
-less-loader  | 将less文件转为css
-ts-loader    | 将TS转为js
-file-loader  | 进行字体，图片的打包
-raw-loader   | 将文件以字符串的形式导入
-thread-loader| 多线程打包css，js
+1. [webpack 基础用法之 ES6 解析](./doc/4.md)
+2. [webpack 基础用法之 JSX 解析](./doc/5.md)
+3. [webpack 基础用法之 CSS 解析](./doc/6.md)
+4. [webpack 基础用法之 图片解析](./doc/7.md)
+5. [webpack 基础用法之 字体解析](./doc/8.md)
+6. [webpack 基础用法之 资源解析](./doc/9.md)
+7. [webpack 基础用法之 文件监听和热更新](./doc/10.md)
+8. [webpack 基础用法之 文件指纹](./doc/11.md)
+9. [webpack 基础用法之 HTML/CSS/JS 压缩](./doc/12.md)
 
-### 使用
-放在module中，test用来指定匹配规则，use指定使用的loader名称
+## webpack 进阶用法
 
-```
-module: {
-        rules: [
-            { test: /\.txt$/, use: 'raw-loader'}
-        ]
-    }
-```
+1. [webpack 进阶用法之 自动清理构建目录产物](./doc/13.md)
+2. [webpack 进阶用法之 PostCSS 插件 autoprefixer 自动补齐 css3前缀](./doc/14.md)
+3. [webpack 进阶用法之 移动端 CSS px 自动转化成 rem](./doc/15.md)
+4. [webpack 进阶用法之 静态资源内联](./doc/16.md)
+5. [webpack 进阶用法之 多页面（MPA）应用打包方案](./doc/17.md)
+6. [webpack 进阶用法之 source map 使用](./doc/18.md)
+7. [webpack 进阶用法之 提取公共资源](./doc/19.md)
+8. [webpack 进阶用法之 tree-shaking](./doc/20.md)
+9. [webpack 进阶用法之 Scope Hoisting](./doc/21.md)
+10. [webpack 进阶用法之 代码分割和动态import](./doc/22.md)
+11. [webpack 进阶用法之 和ESLint 结合](./doc/23.md)
+12. [webpack 进阶用法之 优化构建时命令行的显示日志](./doc/24.md)
+13. [webpack 进阶用法之 构建异常和中断处理](./doc/25.md)
 
-## plugins 
-插件用于bundle文件的优化，资源管理，环境变量的注入，作用于整个构建过程。loader没法做的事情，都是plugins来完成。
+## webpack 优化策略
+
+1. 速度分析
+2. 体积分析 
+3. 多进程/多实例 构建
+4. 多进程并行压缩代码
+5. 使用 exterals 分离基础包
+6. 利用缓存提升二次构建速度
+7. 缩小构建目标
+8. 使用 Tree-shaking 擦除无用的 JS 和 CSS
+9. 使用动态 Polyfill
+10. 使用 webpack 进行图片压缩
+
+## webpack 源码分析
+
+1. webpack 的本质和 Tapable 介绍
+2. Tapable 中的 Sync* 类型的钩子
+3. Tapable 中的 Async* 类型的钩子
+4. webpack 事件流
+5. compile 和 compilation 对象介绍
+6. 编译和构建主流程
+7. 通过 emit 输出构建资源到 Path
+8. 写一个简易的 webpack
+
+## 编写 loader 和插件
+
+1. loader 的执行顺序
+2. loader 匹配文件的可选方式
+3. 写一个自动合成雪碧图的loader
+4. 写一个压缩构建资源为 zip 包的插件
 
 
-### 常见的plugins
 
-名称                         | 描述
----|---
-html-webpack-plugin          | 创建html文件去承载输出的bundle
-clean-webpack-plugin         | 用于在打包前清理上一次项目生成的 bundle 文件
-splitChunks                  | 提取被重复引入的文件，单独生成一个或多个文件，这样避免在多入口重复打包文件（替换CommonsChunkPlugin） 
-copy-webpack-plugin          | 将文件或文件夹拷贝到构建的输出目录
-extract-text-webpack-plugin  | 抽离 css 样式,防止将样式打包在 js 中引起页面样式加载错乱的现象
-UglifyJsPlugin               | 压缩js
-ZipWebpackPlugin             | 将打包的出的资源生成一个zip包
-
-### 使用
-放在plugins数组中：
-
-```
-plugins: [
-        //moment这个库中，如果引用了./locale/目录的内容，就忽略掉，不会打包进去
-        new Webpack.IgnorePlugin(/\.\/locale/, /moment/),
-    ]
-
-```
-
-## mode
-用来指定当前node的构建环境，有三种类型的值:production,development,none。(webpack4)
-可用webpack内置函数来设置。
-
-
-### 选项描述
-
-名称                         | 描述
----|---
-development	    | 会将 DefinePlugin 中 process.env.NODE_ENV 的值设置为 development。启用 NamedChunksPlugin 和 NamedModulesPlugin
-production      | 会将 DefinePlugin 中 process.env.NODE_ENV 的值设置为 production。启用 FlagDependencyUsagePlugin, FlagIncludedChunksPlugin, ModuleConcatenationPlugin, NoEmitOnErrorsPlugin, OccurrenceOrderPlugin, SideEffectsFlagPlugin 和 TerserPlugin。
-none            | 不开启任何优化选项
-
+### [强烈推荐极客时间的这个视频 - 玩转webpack](https://time.geekbang.org/course/intro/190)
